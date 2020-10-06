@@ -1,5 +1,8 @@
 import { NodeInitializer } from "node-red";
-import { EarthrangerConnectionNode, EarthrangerConnectionNodeDef } from "./modules/types";
+import {
+  EarthrangerConnectionNode,
+  EarthrangerConnectionNodeDef,
+} from "./modules/types";
 
 const nodeInit: NodeInitializer = (RED): void => {
   function EarthrangerConnectionNodeConstructor(
@@ -14,7 +17,10 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  RED.nodes.registerType("earthranger-connection", EarthrangerConnectionNodeConstructor);
+  RED.nodes.registerType(
+    "earthranger-connection",
+    EarthrangerConnectionNodeConstructor
+  );
 };
 
 export = nodeInit;
