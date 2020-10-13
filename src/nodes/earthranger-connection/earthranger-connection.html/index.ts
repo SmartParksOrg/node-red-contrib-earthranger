@@ -6,19 +6,18 @@ declare const RED: EditorRED;
 RED.nodes.registerType<EarthrangerConnectionEditorNodeProperties>(
   "earthranger-connection",
   {
-    category: "function",
-    color: "#a6bbcf",
+    category: "config",
+    color: "#63513D",
     defaults: {
       host: { value: "sandbox.pamdas.org", required: true },
       username: { value: "Username", required: true },
       password: { value: "Password", required: true, type: "password" },
+      clientId: { value: "Client Id", required: true },
     },
-    inputs: 1,
-    outputs: 1,
     icon: "EarthRangerWhite.png",
     paletteLabel: "earthranger connection",
     label: function () {
-      return this.name || "earthranger connection";
+      return this.host + " : " + this.username || "earthranger connection";
     },
   }
 );

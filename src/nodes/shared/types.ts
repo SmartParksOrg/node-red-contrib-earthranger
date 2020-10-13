@@ -8,5 +8,3 @@ export interface EarthrangerBaseNodeDef extends NodeDef {
 export interface EarthrangerBaseNode extends Node {
   earthrangerConnection: EarthrangerConnectionNode;
 }
-
-// export type EarthrangerBaseNode = Node;
