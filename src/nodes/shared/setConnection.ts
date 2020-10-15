@@ -11,15 +11,23 @@ export function setConnection(
     RED.nodes.getNode(config.connection)
   );
   if (!earthrangerConnection) {
-    baseNode.error("No earthranger connection set");
+    baseNode.error("no earthranger connection set");
     baseNode.status({
       fill: "red",
       shape: "dot",
-      text: "error",
+      text: "no earthranger connection set",
     });
     return earthrangerConnection;
   }
-  // TODO: validate connection status (do a request, validate if it came trough, if yes connected, if no disconnected)
+  if (earthrangerConnection.apiError) {
+    baseNode.error("can not login to Earth Ranger");
+    baseNode.status({
+      fill: "red",
+      shape: "ring",
+      text: "cannot login",
+    });
+    return earthrangerConnection;
+  }
   baseNode.status({
     fill: "green",
     shape: "dot",

@@ -11,4 +11,5 @@ export interface EarthrangerConnectionNode
   accessToken: string;
   refreshToken: string;
   expiresIn: number;
+  apiError: boolean;
 }

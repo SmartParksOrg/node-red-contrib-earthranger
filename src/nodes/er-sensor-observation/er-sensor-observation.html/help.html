@@ -1,0 +1,109 @@
+<script type="text/html" data-help-name="er-sensor-observation">
+<p>Send an observation from your sensor to Earth Ranger.</p>
+
+<h3>Internals</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> An observation object with all parameters. Formatting of the observation object is found in the Details section.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> A good response looks like this:
+	The response will always be published in <code>msg.payload</code> as an object.<br/>
+	A good response looks like this: <br/>
+	<code>
+		{
+			"data":{},
+			"status":{
+				"code":201,
+				"message":"Created"
+			}
+		}
+	</code>
+	</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+	<code>msg.payload</code> Is used as the payload to the request.<br/>
+
+</p>
+<p> An <code>observation</code> has the following attributes.</p>
+
+<dl class="message-properties">
+	<dt>location
+		<span class="property-type">object</span>
+	</dt>
+	<dd>
+		The location object contains the following elements.
+		<dl class="message-properties">
+			<dt>lat
+				<span class="property-type">number</span>
+			</dt>
+			<dd> The latitude of your GPS fix</dd>
+			<dt>lon
+				<span class="property-type">number</span>
+			</dt>
+			<dd> The longitude of your GPS fix</dd>
+		</dl>
+	</dd>
+
+	<dt class="optional">recorded_at
+		<span class="property-type">string | default: moment().toISOString()</span>
+	</dt>
+	<dd> The timestamp (as ISO string) your gps fix happened.</dd>
+
+	<dt>manufacturer_id
+		<span class="property-type">string</span>
+	</dt>
+	<dd> The Id of your device. In open collars this is the DeviceEui</dd>
+
+	<dt>subject_name
+		<span class="property-type">string | default:"unassigned"</span>
+	</dt>
+	<dd> The display name of your subject in earth ranger</dd>
+
+	<dt class="optional">subject_type
+		<span class="property-type">string | default:"unassigned"</span>
+	</dt>
+	<dd> The parent type of your subject. can be one of these options (found in your environment): https://yoursubdomain.pamdas.org/admin/observations/subjecttype/</dd>
+
+	<dt class="optional">subject_subtype
+		<span class="property-type">string</span>
+	</dt>
+	<dd>  The sub type of your subject (assigns the icon in Earth ranger). Requires subject_type to be the correct parent type of this sub type. can be one of these options (found in your environment):
+	      https://yoursubdomain.pamdas.org/admin/observations/subjectsubtype/</dd>
+
+	<dt class="optional">subject_groups
+		<span class="property-type">[string] | default: ["Smart Parks"]</span>
+	</dt>
+	<dd> The group your subject will be found in the Earth Ranger left sidebar.</dd>
+
+	<dt class="optional">model_name
+		<span class="property-type">string | TODO: optional?</span><!-- TODO: optional> -->
+	</dt>
+	<dd> What is the modelname of your sensor. e.g. "	opencollar_lion_tracker_v1_ABP"</dd>
+
+	<dt class="optional">source_type
+		<span class="property-type">string | "tracking_device"</span>
+	</dt>
+	<dd> What type of source is the sensor of?</dd>
+
+	<dt class="optional">additional
+		<span class="property-type">object</span>
+	</dt>
+	<dd> Additional object in which you can put extra information you think you need in Earth Ranger.</dd>
+</dl>
+
+<h3>References</h3>
+<ul>
+	<li><a href="https://earthranger.com/" target="_blank">Earth Ranger landing page</a> - general information to Earth Ranger.</li>
+	<li><a href="https://sandbox.pamdas.org/api/v1.0/docs/index.html" target="_blank">Earth Ranger API description</a> - If you would like to go into more detail.</li>
+	<li><a href="https://github.com/adminfriso/node-red-contrib-earthranger" target="_blank">GitHub</a> - the Earth Ranger contrib repository.</li>
+</ul>
+</script>

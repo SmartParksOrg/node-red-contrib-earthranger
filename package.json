@@ -24,7 +24,8 @@
   },
   "node-red": {
     "nodes": {
-      "earthranger-connection": "./dist/nodes/earthranger-connection/earthranger-connection.js"
+      "earthranger-connection": "./dist/nodes/earthranger-connection/earthranger-connection.js",
+      "er-sensor-observation": "./dist/nodes/er-sensor-observation/er-sensor-observation.js"
     }
   },
   "dependencies": {
