@@ -61,23 +61,18 @@
 	<dt>manufacturer_id
 		<span class="property-type">string</span>
 	</dt>
-	<dd> The Id of your device. In open collars this is the DeviceEui</dd>
+	<dd> The serial number or other unique sensor value. In open collars this is the DeviceEui.</dd>
 
 	<dt>subject_name
 		<span class="property-type">string | default:"unassigned"</span>
 	</dt>
-	<dd> The display name of your subject in earth ranger</dd>
-
-	<dt class="optional">subject_type
-		<span class="property-type">string | default:"unassigned"</span>
-	</dt>
-	<dd> The parent type of your subject. can be one of these options (found in your environment): https://yoursubdomain.pamdas.org/admin/observations/subjecttype/</dd>
+	<dd> the name that appears in DAS for this sensor. default is the manufacturer_id</dd>
 
 	<dt class="optional">subject_subtype
 		<span class="property-type">string</span>
 	</dt>
-	<dd>  The sub type of your subject (assigns the icon in Earth ranger). Requires subject_type to be the correct parent type of this sub type. can be one of these options (found in your environment):
-	      https://yoursubdomain.pamdas.org/admin/observations/subjectsubtype/</dd>
+	<dd>  The sub type of your subject (assigns the icon in Earth ranger). The default is ‘ranger’, subtypes are defined in your site’s administrative pages at this path:
+	      /admin/observations/subjectsubtype/</dd>
 
 	<dt class="optional">subject_groups
 		<span class="property-type">[string] | default: ["Smart Parks"]</span>
@@ -85,14 +80,14 @@
 	<dd> The group your subject will be found in the Earth Ranger left sidebar.</dd>
 
 	<dt class="optional">model_name
-		<span class="property-type">string | TODO: optional?</span><!-- TODO: optional> -->
+		<span class="property-type">string | the default is to concatenate “sensor_type:provider_key”</span>
 	</dt>
 	<dd> What is the modelname of your sensor. e.g. "	opencollar_lion_tracker_v1_ABP"</dd>
 
 	<dt class="optional">source_type
 		<span class="property-type">string | "tracking_device"</span>
 	</dt>
-	<dd> What type of source is the sensor of?</dd>
+	<dd> The default is the provider_key, possible values are [tracking-device, trap, seismic, firms, gps-radio]</dd>
 
 	<dt class="optional">additional
 		<span class="property-type">object</span>

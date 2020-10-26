@@ -67,7 +67,6 @@ const nodeInit: NodeInitializer = (RED): void => {
       //   subject_id: "dunno what this is",
       //   subject_name: "test sensor 1",
       //   subject_groups: ["olifantjes"],
-      //   subject_type: "vehicle",
       //   subject_subtype: "car",
       //   model_name: "Sensor type 1",
       //   source_type: "Lora sensor?",
@@ -75,11 +74,10 @@ const nodeInit: NodeInitializer = (RED): void => {
       //   source_additional: {},
       // };
 
-      // const input: { location: { lat: number, lon: number }, manufacturer_id: string, recorded_at: string, subject_name: string, subject_type: string, subject_subtype: string, subject_groups: [string], model_name: string, source_type: string, additional: any } = msg.payload;
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const input: any = msg.payload;
-      console.log("input is: -------------------------------------");
-      console.log(input);
+      // console.log("input is: -------------------------------------");
+      // console.log(input);
       const observation = {
         location: {
           lat: input.location.lat,
@@ -88,11 +86,10 @@ const nodeInit: NodeInitializer = (RED): void => {
         recorded_at: input.recorded_at || moment().toISOString(),
         manufacturer_id: input.manufacturer_id,
         subject_name: input.subject_name,
-        subject_type: input.subject_type || "unassigned",
-        subject_subtype: input.subject_subtype || "unassigned",
+        subject_subtype: input.subject_subtype,
         subject_groups: input.subject_groups || ["Smart Parks"],
         model_name: input.model_name,
-        source_type: input.source_type || "tracking_device",
+        source_type: input.source_type || "smart_parks_tracking_device",
         additional: input.additional || {},
       };
 
