@@ -1,3 +1,6 @@
 export interface EarthrangerConnectionOptions {
-  // node options
+  host: string;
+  username: string;
+  password: string;
+  clientId: string;
 }
