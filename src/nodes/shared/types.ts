@@ -6,5 +6,6 @@ export interface EarthrangerBaseNodeDef extends NodeDef {
 }
 
 export interface EarthrangerBaseNode extends Node {
+  apiPath: string;
   earthrangerConnection: EarthrangerConnectionNode;
 }

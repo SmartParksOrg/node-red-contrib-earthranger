@@ -1,6 +1,6 @@
 {
   "name": "@smartparks/node-red-contrib-earthranger",
-  "version": "0.4.4",
+  "version": "1.0",
   "description": "An adapter for node-red to easily connect to the Earth Ranger API.",
   "keywords": [
     "node-red",
@@ -26,7 +26,8 @@
   "node-red": {
     "nodes": {
       "earthranger-connection": "./dist/nodes/earthranger-connection/earthranger-connection.js",
-      "er-sensor-observation": "./dist/nodes/er-sensor-observation/er-sensor-observation.js"
+      "er-sensor-observation": "./dist/nodes/er-sensor-observation/er-sensor-observation.js",
+      "er-send-event": "./dist/nodes/er-send-event/er-send-event.js"
     }
   },
   "dependencies": {

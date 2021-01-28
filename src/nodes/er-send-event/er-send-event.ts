@@ -1,21 +1,18 @@
 import { NodeInitializer } from "node-red";
-import {
-  ErSensorObservationNode,
-  ErSensorObservationNodeDef,
-} from "./modules/types";
+import { ErSendEventNode, ErSendEventNodeDef } from "./modules/types";
 import { setConnection } from "../shared/setConnection";
 import { IncomingMessage } from "http";
 import https from "https";
 import moment from "moment";
 
 const nodeInit: NodeInitializer = (RED): void => {
-  function ErSensorObservationNodeConstructor(
-    this: ErSensorObservationNode,
-    config: ErSensorObservationNodeDef
+  function ErSendEventNodeConstructor(
+    this: ErSendEventNode,
+    config: ErSendEventNodeDef
   ): void {
     RED.nodes.createNode(this, config);
     this.earthrangerConnection = setConnection(this, config, RED);
-    this.apiPath = "/api/v1.0/sensors/generic/smartparks/status";
+    this.apiPath = "/api/v1.0/activity/events/";
 
     this.on("input", (msg, send, done) => {
       //reload the connection for refreshed token
@@ -56,55 +53,49 @@ const nodeInit: NodeInitializer = (RED): void => {
         });
       };
 
-      // create the (json) dataset
-      // old observation With All Params
-      // const observation = {
-      //   location: {
-      //     latitude: 47.123,
-      //     longitude: -122.123,
-      //   },
-      //   recorded_at: moment().toISOString(),
-      //   manufacturer_id: "Foreign key",
-      //   subject_id: "dunno what this is",
-      //   subject_name: "test sensor 1",
-      //   subject_groups: ["olifantjes"],
-      //   subject_subtype: "car",
-      //   model_name: "Sensor type 1",
-      //   source_type: "Lora sensor?",
-      //   additional: {},
-      //   source_additional: {},
-      // };
-
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const input: any = msg.payload;
-      // console.log("input is: -------------------------------------");
-      // console.log(input);
-      const observation = {
-        location: {
-          lat: input.location.lat,
-          lon: input.location.lon,
-        },
-        recorded_at: input.recorded_at || moment().toISOString(),
-        manufacturer_id: input.manufacturer_id,
-        subject_name: input.subject_name,
-        subject_subtype: input.subject_subtype,
-        subject_groups: input.subject_groups || ["Smart Parks"],
-        model_name: input.model_name,
-        source_type: input.source_type || "smart_parks_tracking_device",
-        additional: input.additional || {},
+
+      if (!input.event_type) {
+        msg.payload = "please add an event_type to your object";
+        send(msg);
+        done();
+        return;
+      }
+
+      const event = {
+        event_type: input.event_type,
+        time: moment().toISOString(),
+        location: undefined,
+        event_details: undefined,
+        priority: 0,
       };
+      if (input.time) {
+        event.time = input.time;
+      }
+      if (input.location) {
+        if (input.location.latitude && input.location.longitude) {
+          event.location = input.location;
+        }
+      }
+      if (input.event_details) {
+        event.event_details = input.event_details;
+      }
+      if (
+        input.priority === 0 ||
+        (input.priority >= 100 && input.priority <= 300)
+      ) {
+        event.priority = input.priority;
+      }
 
       // fire the request
       const req = https.request(options, callback);
-      req.write(JSON.stringify(observation));
+      req.write(JSON.stringify(event));
       req.end();
     });
   }
 
-  RED.nodes.registerType(
-    "er-sensor-observation",
-    ErSensorObservationNodeConstructor
-  );
+  RED.nodes.registerType("er-send-event", ErSendEventNodeConstructor);
 };
 
 export = nodeInit;
