@@ -13,18 +13,18 @@
 <h4>Outputs</h4>
 <dl class="message-properties">
 	<dt>payload <span class="property-type">object</span></dt>
-	<dd> A good response looks like this:
-	The response will always be published in <code>msg.payload</code> as an object.<br/>
-	A good response looks like this: <br/>
-	<code>
-		{
-			"data":{},
-			"status":{
-				"code":201,
-				"message":"Created"
-			}
-		}
-	</code>
+	<dd>
+		The response will always be published in <code>msg.payload</code> as an object.<br/>
+		A good response looks like this: <br/>
+		<code>
+			{<br>
+				"data":{},<br>
+				"status":{<br>
+					"code":201,<br>
+					"message":"Created"<br>
+				}<br>
+			}<br>
+		</code>
 	</dd>
 </dl>
 
@@ -71,8 +71,9 @@
 	<dt class="optional">subject_subtype
 		<span class="property-type">string</span>
 	</dt>
-	<dd>  The sub type of your subject (assigns the icon in Earth ranger). The default is ‘ranger’, subtypes are defined in your site’s administrative pages at this path:
-	      /admin/observations/subjectsubtype/</dd>
+	<dd> The sub type of your subject (assigns the icon in Earth ranger). The default is ‘ranger’, subtypes are defined in your site’s administrative pages at this path:
+	     /admin/observations/subjectsubtype/
+	</dd>
 
 	<dt class="optional">subject_groups
 		<span class="property-type">[string] | default: ["Smart Parks"]</span>
@@ -82,7 +83,7 @@
 	<dt class="optional">model_name
 		<span class="property-type">string | the default is to concatenate “sensor_type:provider_key”</span>
 	</dt>
-	<dd> What is the modelname of your sensor. e.g. "	opencollar_lion_tracker_v1_ABP"</dd>
+	<dd> What is the modelname of your sensor. e.g. " opencollar_lion_tracker_v1_ABP"</dd>
 
 	<dt class="optional">source_type
 		<span class="property-type">string | "tracking_device"</span>
