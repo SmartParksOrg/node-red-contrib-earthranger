@@ -7,7 +7,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/adminfriso/node-red-contrib-earthranger">
+  <a href="https://github.com/SmartParksOrg/node-red-contrib-earthranger">
     <img src="src/img/smp-logo-ret.jpg" alt="Logo" width="265" height="150"/>
   </a>
 
@@ -16,14 +16,14 @@
   <p align="center">
     With this Node-Red node you can interface with the REST API of your EarthRanger application.
     <br />
-    <a href="https://github.com/adminfriso/node-red-contrib-earthranger"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/SmartParksOrg/node-red-contrib-earthranger"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/adminfriso/node-red-contrib-earthranger">View Demo</a>
+    <a href="https://github.com/SmartParksOrg/node-red-contrib-earthranger">View Demo</a>
     ·
-    <a href="https://github.com/adminfriso/node-red-contrib-earthranger/issues">Report Bug</a>
+    <a href="https://github.com/SmartParksOrg/node-red-contrib-earthranger/issues">Report Bug</a>
     ·
-    <a href="https://github.com/adminfriso/node-red-contrib-earthranger/issues">Request Feature</a>
+    <a href="https://github.com/SmartParksOrg/node-red-contrib-earthranger/issues">Request Feature</a>
   </p>
 </p>
 
@@ -108,7 +108,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-See the [open issues](https://github.com/adminfriso/node-red-contrib-earthranger/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/SmartParksOrg/node-red-contrib-earthranger/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -137,14 +137,14 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/adminfriso/node-red-contrib-earthranger.svg?style=flat-square
-[contributors-url]: https://github.com/adminfriso/node-red-contrib-earthranger/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/adminfriso/node-red-contrib-earthranger.svg?style=flat-square
-[forks-url]: https://github.com/adminfriso/node-red-contrib-earthranger/network/members
-[stars-shield]: https://img.shields.io/github/stars/adminfriso/node-red-contrib-earthranger.svg?style=flat-square
-[stars-url]: https://github.com/adminfriso/node-red-contrib-earthranger/stargazers
-[issues-shield]: https://img.shields.io/github/issues/adminfriso/node-red-contrib-earthranger.svg?style=flat-square
-[issues-url]: https://github.com/adminfriso/node-red-contrib-earthranger/issues
-[license-shield]: https://img.shields.io/github/license/adminfriso/node-red-contrib-earthranger.svg?style=flat-square
-[license-url]: https://github.com/adminfriso/node-red-contrib-earthranger/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/SmartParksOrg/node-red-contrib-earthranger.svg?style=flat-square
+[contributors-url]: https://github.com/SmartParksOrg/node-red-contrib-earthranger/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/SmartParksOrg/node-red-contrib-earthranger.svg?style=flat-square
+[forks-url]: https://github.com/SmartParksOrg/node-red-contrib-earthranger/network/members
+[stars-shield]: https://img.shields.io/github/stars/SmartParksOrg/node-red-contrib-earthranger.svg?style=flat-square
+[stars-url]: https://github.com/SmartParksOrg/node-red-contrib-earthranger/stargazers
+[issues-shield]: https://img.shields.io/github/issues/SmartParksOrg/node-red-contrib-earthranger.svg?style=flat-square
+[issues-url]: https://github.com/SmartParksOrg/node-red-contrib-earthranger/issues
+[license-shield]: https://img.shields.io/github/license/SmartParksOrg/node-red-contrib-earthranger.svg?style=flat-square
+[license-url]: https://github.com/SmartParksOrg/node-red-contrib-earthranger/blob/main/LICENSE
 [product-screenshot]: src/img/screenshot.png
