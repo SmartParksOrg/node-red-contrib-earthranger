@@ -64,7 +64,7 @@ const nodeInit: NodeInitializer = (RED): void => {
             }
 
             const event:any = {
-                //location: undefined,
+                location: undefined,
                 time: moment().toISOString(),
                 //end_time: undefined,
                 //serial_number: undefined,
@@ -77,7 +77,7 @@ const nodeInit: NodeInitializer = (RED): void => {
                 //title: undefined,
                 //reported_by: undefined,
                 //state: undefined,
-                //event_details: undefined,
+                event_details: undefined,
                 //related_subjects: undefined,
                 //eventsource: undefined,
                 //external_event_id: undefined,
