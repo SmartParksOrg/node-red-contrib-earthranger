@@ -63,25 +63,25 @@ const nodeInit: NodeInitializer = (RED): void => {
                 return;
             }
 
-            const event = {
-                location: undefined,
+            const event:any = {
+                //location: undefined,
                 time: moment().toISOString(),
-                end_time: undefined,
-                serial_number: undefined,
-                message: undefined,
-                provenance: undefined,
+                //end_time: undefined,
+                //serial_number: undefined,
+                //message: undefined,
+                //provenance: undefined,
                 event_type: input.event_type,
                 priority: 0,
-                attributes: undefined,
-                comment: undefined,
-                title: undefined,
-                reported_by: undefined,
-                state: undefined,
-                event_details: undefined,
-                related_subjects: undefined,
-                eventsource: undefined,
-                external_event_id: undefined,
-                patrol_segments: undefined,
+                //attributes: undefined,
+                //comment: undefined,
+                //title: undefined,
+                //reported_by: undefined,
+                //state: undefined,
+                //event_details: undefined,
+                //related_subjects: undefined,
+                //eventsource: undefined,
+                //external_event_id: undefined,
+                //patrol_segments: undefined,
             };
 
             if (input.location) {
