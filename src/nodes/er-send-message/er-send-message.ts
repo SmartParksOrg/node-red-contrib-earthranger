@@ -12,7 +12,7 @@ const nodeInit: NodeInitializer = (RED): void => {
   ): void {
     RED.nodes.createNode(this, config);
     this.earthrangerConnection = setConnection(this, config, RED);
-    this.apiPath = "/api/v1.0/message/";
+    this.apiPath = "/api/v1.0/messages/";
 
     this.on("input", (msg, send, done) => {
       //reload the connection for refreshed token
