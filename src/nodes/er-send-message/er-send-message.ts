@@ -67,6 +67,9 @@ const nodeInit: NodeInitializer = (RED): void => {
         message_time: moment().toISOString(),
         read: true,
         additional: undefined,
+        manufacturer_id: undefined,
+        source_id: undefined,
+        subject_id: undefined,
       };
 
       if (input.sender) message.sender = input.sender;
@@ -84,6 +87,11 @@ const nodeInit: NodeInitializer = (RED): void => {
       if (input.message_time) message.message_time = input.message_time;
       if (input.read) message.read = input.read;
       if (input.additional) message.additional = input.additional;
+
+      if (input.manufacturer_id)
+        message.manufacturer_id = input.manufacturer_id;
+      if (input.source_id) message.source_id = input.source_id;
+      if (input.subject_id) message.subject_id = input.subject_id;
 
       // fire the request
       const req = https.request(options, callback);

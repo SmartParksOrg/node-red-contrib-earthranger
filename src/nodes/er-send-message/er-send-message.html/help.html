@@ -90,7 +90,7 @@
 		<span class="property-type">string | default: moment().toISOString()</span>
 	</dt>
 	<dd> The timestamp (as ISO string) your event happened.</dd>
-</dl>
+
 
 	<dt>read
 		<span class="property-type">bool | undefined</span>
@@ -101,6 +101,24 @@
 		<span class="property-type">object | undefined</span>
 	</dt>
 	<dd>json object with additional information</dd>
+
+
+	<dt>manufacturer_id
+		<span class="property-type">string | undefined</span>
+	</dt>
+	<dd>for inbox messages</dd>
+
+	<dt>source_id
+		<span class="property-type">string | undefined</span>
+	</dt>
+	<dd>for outbox messages</dd>
+
+	<dt>subject_id
+		<span class="property-type">string | undefined</span>
+	</dt>
+	<dd>for outbox messages</dd>
+</dl>
+
 
 <h3>References</h3>
 <ul>
