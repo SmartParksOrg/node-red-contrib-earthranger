@@ -1,21 +1,18 @@
 import { NodeInitializer } from "node-red";
-import {
-  ErSensorObservationNode,
-  ErSensorObservationNodeDef,
-} from "./modules/types";
+import { ErSendMessageNode, ErSendMessageNodeDef } from "./modules/types";
 import { setConnection } from "../shared/setConnection";
 import { IncomingMessage } from "http";
 import https from "https";
 import moment from "moment";
 
 const nodeInit: NodeInitializer = (RED): void => {
-  function ErSensorObservationNodeConstructor(
-    this: ErSensorObservationNode,
-    config: ErSensorObservationNodeDef
+  function ErMessageNodeConstructor(
+    this: ErSendMessageNode,
+    config: ErSendMessageNodeDef
   ): void {
     RED.nodes.createNode(this, config);
     this.earthrangerConnection = setConnection(this, config, RED);
-    this.apiPath = "/api/v1.0/sensors/generic/smartparks/status";
+    this.apiPath = "/api/v1.0/message/";
 
     this.on("input", (msg, send, done) => {
       //reload the connection for refreshed token
@@ -55,55 +52,55 @@ const nodeInit: NodeInitializer = (RED): void => {
         });
       };
 
-      // create the (json) dataset
-      // old observation With All Params
-      // const observation = {
-      //   location: {
-      //     latitude: 47.123,
-      //     longitude: -122.123,
-      //   },
-      //   recorded_at: moment().toISOString(),
-      //   manufacturer_id: "Foreign key",
-      //   subject_id: "dunno what this is",
-      //   subject_name: "test sensor 1",
-      //   subject_groups: ["olifantjes"],
-      //   subject_subtype: "car",
-      //   model_name: "Sensor type 1",
-      //   source_type: "Lora sensor?",
-      //   additional: {},
-      //   source_additional: {},
-      // };
-
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const input: any = msg.payload;
-      // console.log("input is: -------------------------------------");
-      // console.log(input);
-      const observation = {
-        location: {
-          lat: input.location.lat,
-          lon: input.location.lon,
-        },
-        recorded_at: input.recorded_at || moment().toISOString(),
-        manufacturer_id: input.manufacturer_id,
-        subject_name: input.subject_name,
-        subject_subtype: input.subject_subtype,
-        subject_groups: input.subject_groups || ["Smart Parks"],
-        model_name: input.model_name,
-        source_type: input.source_type || "smart_parks_tracking_device",
-        additional: input.additional || {},
+
+      //TODO: Fix all fields belonging to message
+      if (!input.event_type) {
+        msg.payload = "please add an event_type to your object";
+        send(msg);
+        done();
+        return;
+      }
+
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const message: any = {
+        sender: undefined,
+        receiver: undefined,
+        device: undefined,
+        message_type: "outbox",
+        text: undefined,
+        status: undefined,
+        device_location: undefined,
+        message_time: moment().toISOString(),
+        read: true,
+        additional: undefined,
       };
+
+      if (input.sender) message.sender = input.sender;
+      if (input.receiver) message.receiver = input.receiver;
+      if (input.device) message.device = input.device;
+      if (input.message_type) message.message_type = input.message_type;
+      if (input.text) message.text = input.text;
+      if (input.status) message.status = input.status;
+
+      if (input.device_location) {
+        if (input.device_location.latitude && input.device_location.longitude) {
+          message.device_location = input.device_location;
+        }
+      }
+      if (input.message_time) message.message_time = input.message_time;
+      if (input.read) message.read = input.read;
+      if (input.additional) message.additional = input.additional;
 
       // fire the request
       const req = https.request(options, callback);
-      req.write(JSON.stringify(observation));
+      req.write(JSON.stringify(message));
       req.end();
     });
   }
 
-  RED.nodes.registerType(
-    "er-sensor-observation",
-    ErSensorObservationNodeConstructor
-  );
+  RED.nodes.registerType("er-send-message", ErMessageNodeConstructor);
 };
 
 export = nodeInit;
