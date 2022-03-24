@@ -55,14 +55,6 @@ const nodeInit: NodeInitializer = (RED): void => {
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const input: any = msg.payload;
 
-      //TODO: Fix all fields belonging to message
-      if (!input.event_type) {
-        msg.payload = "please add an event_type to your object";
-        send(msg);
-        done();
-        return;
-      }
-
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const message: any = {
         sender: undefined,
