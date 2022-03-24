@@ -1,6 +1,6 @@
 {
   "name": "@smartparks/node-red-contrib-earthranger",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "An adapter for node-red to easily connect to the Earth Ranger API.",
   "keywords": [
     "node-red",
