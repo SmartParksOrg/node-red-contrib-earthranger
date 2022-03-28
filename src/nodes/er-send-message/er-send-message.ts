@@ -18,17 +18,6 @@ const nodeInit: NodeInitializer = (RED): void => {
       //reload the connection for refreshed token
       this.earthrangerConnection = setConnection(this, config, RED);
 
-      //setup the request header and url
-      const options = {
-        host: this.earthrangerConnection.host,
-        path: this.apiPath,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: "Bearer " + this.earthrangerConnection.accessToken,
-        },
-      };
       // handle the request callback
       const callback = (response: IncomingMessage) => {
         let str = "";
@@ -72,6 +61,11 @@ const nodeInit: NodeInitializer = (RED): void => {
         subject_id: undefined,
       };
 
+      if (input.manufacturer_id)
+        this.apiPath += "?manufacturer_id=" + input.manufacturer_id;
+      if (input.source_id) this.apiPath += "?source_id=" + input.source_id;
+      if (input.subject_id) this.apiPath += "?subject_id=" + input.subject_id;
+
       if (input.sender) message.sender = input.sender;
       if (input.receiver) message.receiver = input.receiver;
       if (input.device) message.device = input.device;
@@ -88,10 +82,17 @@ const nodeInit: NodeInitializer = (RED): void => {
       if (input.read) message.read = input.read;
       if (input.additional) message.additional = input.additional;
 
-      if (input.manufacturer_id)
-        message.manufacturer_id = input.manufacturer_id;
-      if (input.source_id) message.source_id = input.source_id;
-      if (input.subject_id) message.subject_id = input.subject_id;
+      //setup the request header and url
+      const options = {
+        host: this.earthrangerConnection.host,
+        path: this.apiPath,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + this.earthrangerConnection.accessToken,
+        },
+      };
 
       // fire the request
       const req = https.request(options, callback);
