@@ -70,6 +70,16 @@ const nodeInit: NodeInitializer = (RED): void => {
     };
 
     const req = https.request(options, callback);
+    req.on("error", () => {
+      node.error("the host is unreachable while authenticating");
+      node.connectionError = true;
+      node.status({
+        fill: "red",
+        shape: "dot",
+        text: "the host is unreachable",
+      });
+      return;
+    });
 
     req.write(
       "grant_type=password&username=" +
@@ -114,6 +124,16 @@ const nodeInit: NodeInitializer = (RED): void => {
       });
     };
     const req = https.request(options, callback);
+    req.on("error", () => {
+      node.error("the host is unreachable while refreshing the authentication");
+      node.connectionError = true;
+      node.status({
+        fill: "red",
+        shape: "dot",
+        text: "the host is unreachable",
+      });
+      return;
+    });
 
     req.write(
       "grant_type=refresh_token" +

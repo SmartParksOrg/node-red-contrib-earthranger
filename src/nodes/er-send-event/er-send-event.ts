@@ -11,7 +11,7 @@ const nodeInit: NodeInitializer = (RED): void => {
     config: ErSendEventNodeDef
   ): void {
     RED.nodes.createNode(this, config);
-    this.earthrangerConnection = setConnection(this, config, RED);
+    this.earthrangerConnection = setConnection(this, config, RED, 1000);
     this.apiPath = "/api/v1.0/activity/events/";
 
     this.on("input", (msg, send, done) => {
@@ -116,6 +116,17 @@ const nodeInit: NodeInitializer = (RED): void => {
 
       // fire the request
       const req = https.request(options, callback);
+      req.on("error", () => {
+        this.error(
+          "the host: " + this.earthrangerConnection.host + "is unavailable"
+        );
+        this.status({
+          fill: "red",
+          shape: "dot",
+          text:
+            "the host: " + this.earthrangerConnection.host + "is unavailable",
+        });
+      });
       req.write(JSON.stringify(event));
       req.end();
     });
