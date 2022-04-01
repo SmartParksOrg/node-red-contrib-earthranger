@@ -27,7 +27,7 @@ const nodeInit: NodeInitializer = (RED): void => {
 
         response.on("end", () => {
           const res = JSON.parse(str);
-          if (res.status.code != 201) {
+          if (!(res.status.code == 201 || res.status.code == 200)) {
             this.error(res);
             this.status({
               fill: "yellow",
@@ -49,23 +49,25 @@ const nodeInit: NodeInitializer = (RED): void => {
         sender: undefined,
         receiver: undefined,
         device: undefined,
-        message_type: "outbox",
+        message_type: "inbox",
         text: undefined,
         status: undefined,
         device_location: undefined,
         message_time: moment().toISOString(),
         read: true,
         additional: undefined,
-        manufacturer_id: undefined,
-        source_id: undefined,
-        subject_id: undefined,
+        // manufacturer_id: undefined,
+        // source_id: undefined,
+        // subject_id: undefined,
       };
-
+      const params = new URLSearchParams();
       if (input.manufacturer_id)
-        this.apiPath += "?manufacturer_id=" + input.manufacturer_id;
-      if (input.source_id) this.apiPath += "?source_id=" + input.source_id;
-      if (input.subject_id) this.apiPath += "?subject_id=" + input.subject_id;
-
+        params.append("manufacturer_id", input.manufacturer_id);
+      if (input.source_id) params.append("source_id", input.source_id);
+      if (input.subject_id) params.append("subject_id", input.subject_id);
+      if (params.toString().length > 0) {
+        this.apiPath += "?" + params;
+      }
       if (input.sender) message.sender = input.sender;
       if (input.receiver) message.receiver = input.receiver;
       if (input.device) message.device = input.device;

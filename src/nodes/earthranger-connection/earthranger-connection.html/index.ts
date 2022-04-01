@@ -7,7 +7,7 @@ RED.nodes.registerType<EarthrangerConnectionEditorNodeProperties>(
   "earthranger-connection",
   {
     category: "config",
-    color: "#63513D",
+    color: "#6bbbae",
     defaults: {
       host: { value: "sandbox.pamdas.org", required: true },
       username: { value: "Username", required: true },

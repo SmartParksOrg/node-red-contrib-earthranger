@@ -5,7 +5,7 @@ declare const RED: EditorRED;
 
 RED.nodes.registerType<ErSendMessageEditorNodeProperties>("er-send-message", {
   category: "network",
-  color: "#63513D",
+  color: "#6bbbae",
   defaults: {
     name: { value: "" },
     connection: { value: "", type: "earthranger-connection" },

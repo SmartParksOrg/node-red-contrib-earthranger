@@ -7,7 +7,7 @@ RED.nodes.registerType<ErSensorObservationEditorNodeProperties>(
   "er-sensor-observation",
   {
     category: "network",
-    color: "#63513D",
+    color: "#6bbbae",
     defaults: {
       name: { value: "" },
       connection: { value: "", type: "earthranger-connection" },

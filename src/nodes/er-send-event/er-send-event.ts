@@ -38,7 +38,7 @@ const nodeInit: NodeInitializer = (RED): void => {
 
         response.on("end", () => {
           const res = JSON.parse(str);
-          if (res.status.code != 201) {
+          if (!(res.status.code == 201 || res.status.code == 200)) {
             this.error(res);
             this.status({
               fill: "yellow",
