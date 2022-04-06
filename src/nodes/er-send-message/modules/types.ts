@@ -8,5 +8,7 @@ export interface ErSendMessageNodeDef
   extends EarthrangerBaseNodeDef,
     ErSendMessageOptions {}
 
-// export interface ErSendEventNode extends EarthrangerBaseNode {}
-export type ErSendMessageNode = EarthrangerBaseNode;
+export interface ErSendMessageNode extends EarthrangerBaseNode {
+  requestUrl: string;
+}
+// export type ErSendMessageNode = EarthrangerBaseNode;

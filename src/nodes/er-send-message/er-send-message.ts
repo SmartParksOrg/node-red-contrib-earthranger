@@ -27,7 +27,7 @@ const nodeInit: NodeInitializer = (RED): void => {
 
         response.on("end", () => {
           const res = JSON.parse(str);
-          if (!(res.status.code == 201 || res.status.code == 200)) {
+          if (res.status !== "received") {
             this.error(res);
             this.status({
               fill: "yellow",
@@ -60,13 +60,14 @@ const nodeInit: NodeInitializer = (RED): void => {
         // source_id: undefined,
         // subject_id: undefined,
       };
+      this.requestUrl = this.apiPath;
       const params = new URLSearchParams();
       if (input.manufacturer_id)
         params.append("manufacturer_id", input.manufacturer_id);
       if (input.source_id) params.append("source_id", input.source_id);
       if (input.subject_id) params.append("subject_id", input.subject_id);
       if (params.toString().length > 0) {
-        this.apiPath += "?" + params;
+        this.requestUrl = this.apiPath + "?" + params;
       }
       if (input.sender) message.sender = input.sender;
       if (input.receiver) message.receiver = input.receiver;
@@ -87,7 +88,7 @@ const nodeInit: NodeInitializer = (RED): void => {
       //setup the request header and url
       const options = {
         host: this.earthrangerConnection.host,
-        path: this.apiPath,
+        path: this.requestUrl,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
