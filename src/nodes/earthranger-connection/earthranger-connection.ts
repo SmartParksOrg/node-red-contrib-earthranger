@@ -48,17 +48,7 @@ const nodeInit: NodeInitializer = (RED): void => {
       });
 
       response.on("end", () => {
-        const res = JSON.parse(str);
-        if (res.error) {
-          node.error("Earth Ranger Api Error: " + res.error);
-          node.apiError = true;
-          node.status({
-            fill: "red",
-            shape: "ring",
-            text: "cannot login",
-          });
-          return;
-        }
+        const res = parseJson(str, node);
         node.apiError = false;
         node.accessToken = res.access_token;
         node.refreshToken = res.refresh_token;
@@ -103,17 +93,7 @@ const nodeInit: NodeInitializer = (RED): void => {
       });
 
       response.on("end", () => {
-        const res = JSON.parse(str);
-        if (res.error) {
-          node.error("Earth Ranger Api Error: " + res.error);
-          node.apiError = true;
-          node.status({
-            fill: "red",
-            shape: "ring",
-            text: "cannot login",
-          });
-          return;
-        }
+        const res = parseJson(str, node);
         node.apiError = false;
         node.accessToken = res.access_token;
         node.refreshToken = res.refresh_token;
@@ -150,5 +130,42 @@ const nodeInit: NodeInitializer = (RED): void => {
     EarthrangerConnectionNodeConstructor
   );
 };
+
+function parseJson(str : any, node :EarthrangerConnectionNode) {
+  if (str.length == 0) {
+    node.apiError = true;
+    node.status({
+      fill: "red",
+      shape: "ring",
+      text: "empty string",
+    });
+    node.error("ER: empty string");
+    return;
+  }
+
+  const res = JSON.parse(str);
+
+  if (res.validate(res, str) == false) {
+    node.apiError = true;
+    node.status({
+      fill: "red",
+      shape: "ring",
+      text: "invalid json input",
+    });
+    node.error("ER: invalid json input: " + str);
+    return;
+  }
+  if (res.error) {
+    node.apiError = true;
+    node.status({
+      fill: "red",
+      shape: "ring",
+      text: "cannot login",
+    });
+    node.error("ER: Json validation Error: " + res.error);
+    return;
+  }
+  return res;
+}
 
 export = nodeInit;
