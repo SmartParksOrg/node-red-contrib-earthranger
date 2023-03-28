@@ -49,6 +49,9 @@ const nodeInit: NodeInitializer = (RED): void => {
 
       response.on("end", () => {
         const res = parseJson(str, node);
+        if(res == false){
+          return;
+        }
         node.apiError = false;
         node.accessToken = res.access_token;
         node.refreshToken = res.refresh_token;
@@ -94,6 +97,9 @@ const nodeInit: NodeInitializer = (RED): void => {
 
       response.on("end", () => {
         const res = parseJson(str, node);
+        if(res == false){
+          return;
+        }
         node.apiError = false;
         node.accessToken = res.access_token;
         node.refreshToken = res.refresh_token;
@@ -131,7 +137,8 @@ const nodeInit: NodeInitializer = (RED): void => {
   );
 };
 
-function parseJson(str : any, node :EarthrangerConnectionNode) {
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+function parseJson(str: any, node: EarthrangerConnectionNode) {
   if (str.length == 0) {
     node.apiError = true;
     node.status({
@@ -140,21 +147,25 @@ function parseJson(str : any, node :EarthrangerConnectionNode) {
       text: "empty string",
     });
     node.error("ER: empty string");
-    return;
+    return false;
   }
 
-  const res = JSON.parse(str);
-
-  if (res.validate(res, str) == false) {
+  try {
+    JSON.parse(str);
+  }
+  catch(e) {
     node.apiError = true;
     node.status({
       fill: "red",
       shape: "ring",
       text: "invalid json input",
     });
-    node.error("ER: invalid json input: " + str);
-    return;
+    node.error("ER: invalid json input: " + e);
+    return false;
   }
+
+  const res = JSON.parse(str);
+
   if (res.error) {
     node.apiError = true;
     node.status({
@@ -163,7 +174,7 @@ function parseJson(str : any, node :EarthrangerConnectionNode) {
       text: "cannot login",
     });
     node.error("ER: Json validation Error: " + res.error);
-    return;
+    return false;
   }
   return res;
 }
