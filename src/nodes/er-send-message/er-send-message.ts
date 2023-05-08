@@ -4,6 +4,7 @@ import { setConnection } from "../shared/setConnection";
 import { IncomingMessage } from "http";
 import https from "https";
 import moment from "moment";
+import { parseAndValidateJson } from "../shared/parseAndValidateJson";
 
 const nodeInit: NodeInitializer = (RED): void => {
   function ErMessageNodeConstructor(
@@ -26,7 +27,8 @@ const nodeInit: NodeInitializer = (RED): void => {
         });
 
         response.on("end", () => {
-          const res = JSON.parse(str);
+          const res = parseAndValidateJson(str, this);
+          // const res = JSON.parse(str);
           if (res.status !== "received") {
             this.error(res);
             this.status({

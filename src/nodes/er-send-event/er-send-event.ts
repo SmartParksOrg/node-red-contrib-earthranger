@@ -4,6 +4,7 @@ import { setConnection } from "../shared/setConnection";
 import { IncomingMessage } from "http";
 import https from "https";
 import moment from "moment";
+import { parseAndValidateJson } from "../shared/parseAndValidateJson";
 
 const nodeInit: NodeInitializer = (RED): void => {
   function ErSendEventNodeConstructor(
@@ -37,7 +38,8 @@ const nodeInit: NodeInitializer = (RED): void => {
         });
 
         response.on("end", () => {
-          const res = JSON.parse(str);
+          const res = parseAndValidateJson(str, this);
+          //const res = JSON.parse(str);
           if (!(res.status.code == 201 || res.status.code == 200)) {
             this.error(res);
             this.status({

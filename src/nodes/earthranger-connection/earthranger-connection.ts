@@ -39,7 +39,8 @@ const nodeInit: NodeInitializer = (RED): void => {
 
   function reqAuthToken(
     node: EarthrangerConnectionNode,
-    options: RequestOptions
+    options: RequestOptions,
+    tries = 0
   ): void {
     const callback = (response: IncomingMessage) => {
       let str = "";
@@ -50,6 +51,10 @@ const nodeInit: NodeInitializer = (RED): void => {
       response.on("end", () => {
         const res = parseJson(str, node);
         if(res == false){
+          node.error("The auth token response was no valid json. trying to request a new auth token in 5 minutes");
+          setTimeout(() => {
+            reqAuthToken(node, options, tries + 1);
+          }, tries * 5 * 60 * 1000 + 1000);
           return;
         }
         node.apiError = false;
@@ -98,6 +103,10 @@ const nodeInit: NodeInitializer = (RED): void => {
       response.on("end", () => {
         const res = parseJson(str, node);
         if(res == false){
+          node.error("The refresh token response was no valid json. trying to request a new auth token in 5 minutes");
+          setTimeout(() => {
+            reqAuthToken(node, options);
+          }, 5 * 60 * 1000 + 1000);
           return;
         }
         node.apiError = false;
